@@ -8,49 +8,33 @@ namespace Higher_Lower
 {
     public class Deck
     {
-        int[] cardArray = new int[52];
-        
-        public void deck()
+        //method to generate random card by suit and rank
+        public string random()
         {
-            for (int i = 0; i < 52; i++)
-            {
-                cardArray[i] = i;
-            }
-        }
+            //the pack of cards. suit(key), rank(values(array)). 
+            Dictionary<string, string[]> newArray = new Dictionary<string, string[]>();
+            string[] vals = new string[] { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
+            newArray.Add("Clubs", vals);
+            newArray.Add("Diamonds", vals);
+            newArray.Add("Spades", vals);
+            newArray.Add("Hearts", vals);
 
-        public void random()
-        {
             Random rand = new Random();
-            int num = 0;
-            num = rand.Next(0,51);
-        }
 
-      /* public int getCard()
-        {
+            //transferring dictionary keys into an array for indexing purposes.
+            string[] keysArray = newArray.Keys.ToArray();
+            //generating a random key(suit) using .Next(int32) where the random key is between 0 and keysArray.Length
+            int randKeyIndex = rand.Next(keysArray.Length);
+            //using the random index to identify the suit to plug back into the dictionary
+            string randKey = keysArray[randKeyIndex];
+            // same as randKeyIndex, except for the index of the rank of card.
+            int randCard = rand.Next(vals.Length);
 
-        }*/
+            //identifies the random card and stores to be used in game for the next random card generated.
+            string nextCard = newArray[randKey][randCard];
 
-        public string result()
-        {
-            int a = 8;
-            int b = 2;
-            string result;
-
-            if (a > b)
-            {
-                result = "add";
-                return result;
-            }
-            else if (a == b)
-            {
-                result = "equal";
-                return result;
-            }
-            else
-            {
-                result = "sub";
-                return result;
-            }
+            //returns a string with random suit and rank of the next card. eg "Four of Diamonds"
+            return String.Format("{0} of {1}", nextCard, randKey);
         }
     }
 }

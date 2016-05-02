@@ -23,5 +23,12 @@ namespace Higher_Lower
         {
             InitializeComponent();
         }
+
+        private void Menu_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow menu = new MainWindow();
+            this.Hide();
+            menu.Show();
+        }
     }
 }
