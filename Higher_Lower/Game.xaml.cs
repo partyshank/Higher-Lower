@@ -34,6 +34,7 @@ namespace Higher_Lower
             textBox1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF2E00"));
         }
 
+        //upon completion of game, resets all back to intial state to start new game.
         private void reset()
         {
             for (int k=0; k<textBoxList.Count; k++)
@@ -61,6 +62,8 @@ namespace Higher_Lower
         int index = 1;
         Deck thing = new Deck();
         bool doublePoints = true;
+
+        // attempt to store scores into an array to input into table in statistics.xaml
         int highScore;
         public List<int> highScoreArray = new List<int>();
 
@@ -83,9 +86,12 @@ namespace Higher_Lower
             textBoxList[index - 1].Foreground = Brushes.White;
             textBoxList[index - 1].FontWeight = FontWeights.Normal;
 
+            //split the text in current and previous textbox eg("2 of Spades") into an array in order to use indexing
+            //to convert the rank of card into an integer for use in conditional statements further below.
             string[] cardValueCurrentArrayString = textBoxList[index].Text.Split(' ');
             string[] cardValuePreviousArrayString = textBoxList[index - 1].Text.Split(' ');
 
+            //these ranks cannot be converted directly into integers, hence this.
             if (cardValueCurrentArrayString[0] == "Ace")
             {
                 cardValueCurrentArrayString[0] = "1";
@@ -106,7 +112,7 @@ namespace Higher_Lower
                 cardValueCurrentArrayString[0] = "13";
             }
 
-            //seksksksksksksksksk
+            //this is very bulky and messy, will figure out how to neaten soon.
 
             if (cardValuePreviousArrayString[0] == "Ace")
             {
@@ -128,6 +134,7 @@ namespace Higher_Lower
                 cardValuePreviousArrayString[0] = "13";
             }
 
+            // parsing the string values of card ranks into integers for use in conditinals just below.
             int cardValueCurrent = int.Parse(cardValueCurrentArrayString[0]);
             int cardValuePrevious = int.Parse(cardValuePreviousArrayString[0]);
 
@@ -139,7 +146,7 @@ namespace Higher_Lower
                 index = 0;
             }
 
-            // scoring system, check out result() for reference
+            // scoring system
             if (doublePoints)
             {
                 if (cardValueCurrent > cardValuePrevious)
@@ -149,7 +156,9 @@ namespace Higher_Lower
                     if (score >= 100)
                     {
                         MessageBox.Show("Congratulations!");
+                        //attempting to store the current number of guesses into highscore to add to statistics.xaml table
                         highScore = guesses;
+                        //limits number of scores in statistics table to 10.
                         if (highScoreArray.Count == 10)
                         {
                             highScoreArray.Remove(highScoreArray.Max());
@@ -160,6 +169,8 @@ namespace Higher_Lower
                             highScoreArray.Add(highScore);
                         }
                         highScoreArray.Sort();
+                        //only used to make sure high scores are being added,sorted and limited - (10) - to high score array
+                        //this will be removed.
                         for (int a = 0; a < highScoreArray.Count; a++)
                         {
                             MessageBox.Show(highScoreArray[a].ToString());
@@ -171,6 +182,7 @@ namespace Higher_Lower
                 {
                     MessageBox.Show("Double Points!");
                     doublePoints = false;
+                    //when current and previous cards are equal in rank, no. of guesses remains same.
                     guesses -= 1;
                 }
                 else
