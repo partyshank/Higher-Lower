@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Higher_Lower"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
-        Title="Game" Height="350" Width="525" Loaded="Game_Loaded">
+        Title="Game" Height="350" Width="525">
     <Grid RenderTransformOrigin="0.5,0.5">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -31,7 +31,7 @@
         <TextBox x:Name="textBox4" HorizontalAlignment="Left" Height="56" Margin="311,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
         <TextBox x:Name="textBox5" HorizontalAlignment="Left" Height="56" Margin="411,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
         <Button x:Name="button3" Content="Menu" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="Menu_Click" Cursor="Hand" BorderThickness="2" Background="#FFFF2E00" BorderBrush="Black"/>
-        <TextBox x:Name="textBox6" HorizontalAlignment="Left" Height="35" Margin="284,182,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="39" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="textBox6" HorizontalAlignment="Left" Height="35" Margin="284,182,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="39" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True"/>
         <Label x:Name="label" Content="Score -" HorizontalAlignment="Left" Margin="154,189,0,0" VerticalAlignment="Top" Width="60" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Foreground="#FFFF2E00" FontWeight="Bold" FontSize="14"/>
         <Label x:Name="label1" Content="- Guesses" HorizontalAlignment="Left" Margin="320,189,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FFFF2E00" FontWeight="Bold" FontSize="14"/>
 

@@ -8,6 +8,7 @@ namespace Higher_Lower
 {
     public class Deck
     {
+
         //method to generate random card by suit and rank
         public string random()
         {
