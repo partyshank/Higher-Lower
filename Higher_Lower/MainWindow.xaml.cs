@@ -32,13 +32,6 @@ namespace Higher_Lower
             game.Show();
         }
 
-        private void Stats_Click(object sender, RoutedEventArgs e)
-        {
-            Statistics stats = new Statistics();
-            this.Hide();
-            stats.Show();
-        }
-
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             Settings settings = new Settings();

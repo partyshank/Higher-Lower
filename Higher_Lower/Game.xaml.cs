@@ -19,12 +19,20 @@ namespace Higher_Lower
     /// </summary>
     public partial class Game : Window
     {
+        Deck thing = new Deck();
+
+        Random rand = new Random();
+        Card card = new Card();
+        Card prevCard = new Card();
+
         public Game()
         {
             InitializeComponent();
             // generates a random initial card to start the game upon window load.
             addTextBox();
-            textBoxList[0].Text = thing.random();
+            card.Value = (cardValue)rand.Next(1, 14);
+            card.Suit = (cardSuit)rand.Next(0, 4);
+            textBoxList[0].Text = card.ToString();
             textBoxList[0].FontWeight = FontWeights.Bold;
             textBoxList[0].Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF2E00"));
         }
@@ -45,9 +53,11 @@ namespace Higher_Lower
 
         private void initClick()
         {
+            card.Value = (cardValue)rand.Next(1, 14);
+            card.Suit = (cardSuit)rand.Next(0, 4);
             //using index will always add text to the second textbox on first click. increment index of textbox array on 
             //each click so appends text to the next textbox in array
-            textBoxList[index].Text = thing.random();
+            textBoxList[index].Text = card.ToString();
             textBoxList[index].FontWeight = FontWeights.Bold;
             textBoxList[index].Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF2E00"));
             textBoxList[previndex].Foreground = Brushes.White;
@@ -66,7 +76,7 @@ namespace Higher_Lower
             index = 0;
             previndex = -1;
             textBox.Text = score.ToString();
-            textBoxList[0].Text = thing.random();
+            textBoxList[0].Text = card.ToString();
             textBoxList[0].FontWeight = FontWeights.Bold;
             textBoxList[0].Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF2E00"));
 
@@ -77,14 +87,8 @@ namespace Higher_Lower
         //index and previous index for textbox arrays when adding styling.
         int index = 0;
         int previndex = -1;
-        Deck thing = new Deck();
         bool doublePoints = false;
 
-        // attempt to store scores into an array to input into table in statistics.xaml
-        int highScore;
-        public List<int> highScoreArray = new List<int>();
-
-      
         // higher_click and lower_click contain almost identical code. 
         private void Higher_Click(object sender, RoutedEventArgs e)
         {
@@ -105,62 +109,17 @@ namespace Higher_Lower
 
             initClick();
 
-            //split the text in current and previous textbox eg("2 of Spades") into an array in order to use indexing
-            //to convert the rank of card into an integer for use in conditional statements further below.
-            string[] cardValueCurrentArrayString = textBoxList[index].Text.Split(' ');
-            string[] cardValuePreviousArrayString = textBoxList[previndex].Text.Split(' ');
+            string[] prevCardArray = textBoxList[previndex].Text.Split();
+            cardValue prevCardValue = (cardValue)Enum.Parse(typeof(cardValue), prevCardArray[0]);
+            cardSuit prevCardSuit = (cardSuit)Enum.Parse(typeof(cardSuit), prevCardArray[2]);
 
-            //these ranks cannot be converted directly into integers, hence this.
-            if (cardValueCurrentArrayString[0] == "Ace")
-            {
-                cardValueCurrentArrayString[0] = "1";
-            }
+            prevCard.Value = prevCardValue;
+            prevCard.Suit = prevCardSuit;
 
-            if (cardValueCurrentArrayString[0] == "Jack")
-            {
-                cardValueCurrentArrayString[0] = "11";
-            }
-
-            if (cardValueCurrentArrayString[0] == "Queen")
-            {
-                cardValueCurrentArrayString[0] = "12";
-            }
-
-            if (cardValueCurrentArrayString[0] == "King")
-            {
-                cardValueCurrentArrayString[0] = "13";
-            }
-
-            //this is very bulky and messy, will figure out how to neaten soon.
-
-            if (cardValuePreviousArrayString[0] == "Ace")
-            {
-                cardValuePreviousArrayString[0] = "1";
-            }
-
-            if (cardValuePreviousArrayString[0] == "Jack")
-            {
-                cardValuePreviousArrayString[0] = "11";
-            }
-
-            if (cardValuePreviousArrayString[0] == "Queen")
-            {
-                cardValuePreviousArrayString[0] = "12";
-            }
-
-            if (cardValuePreviousArrayString[0] == "King")
-            {
-                cardValuePreviousArrayString[0] = "13";
-            }
-
-            // parsing the string values of card ranks into integers for use in conditinals just below.
-            int cardValueCurrent = int.Parse(cardValueCurrentArrayString[0]);
-            int cardValuePrevious = int.Parse(cardValuePreviousArrayString[0]);
-
-            int points = doublePoints ? 20 : 10;
+            int points = doublePoints == true ? 20 : 10;
 
             // scoring system
-            if (cardValueCurrent > cardValuePrevious)
+            if (card.compare(card, prevCard) == 1)
             {
                 score += points;
                 if (score >= 100)
@@ -168,30 +127,11 @@ namespace Higher_Lower
                     textBox.Text = score.ToString();
                     textBox6.Text = guesses.ToString();
                     MessageBox.Show("Congratulations! It took you " + guesses + " guesses to win.");
-                    //attempting to store the current number of guesses into highscore to add to statistics.xaml table
-                    highScore = guesses;
-                    //limits number of scores in statistics table to 10.
-                    if (highScoreArray.Count == 10)
-                    {
-                        highScoreArray.Remove(highScoreArray.Max());
-                        highScoreArray.Add(highScore);
-                    }
-                    else
-                    {
-                        highScoreArray.Add(highScore);
-                    }
-                    highScoreArray.Sort();
-                    //only used to make sure high scores are being added,sorted and limited - (10) - to high score array
-                    //this will be removed.
-                    for (int a = 0; a < highScoreArray.Count; a++)
-                    {
-                        MessageBox.Show(highScoreArray[a].ToString());
-                    }
                     reset();
                 }
                 doublePoints = false;
             }
-            else if (cardValueCurrent == cardValuePrevious)
+            else if (card.compare(card, prevCard) == 0)
             {
                 MessageBox.Show("Double Points!");
                 doublePoints = true;
@@ -205,6 +145,7 @@ namespace Higher_Lower
             }
             textBox6.Text = guesses.ToString();
             textBox.Text = score.ToString();
+
         }
         
         private void Lower_Click(object sender, RoutedEventArgs e)
@@ -225,57 +166,16 @@ namespace Higher_Lower
 
             initClick();
 
-            string[] cardValueCurrentArrayString = textBoxList[index].Text.Split();
-            string[] cardValuePreviousArrayString = textBoxList[previndex].Text.Split();
+            string[] prevCardArray = textBoxList[previndex].Text.Split();
+            cardValue prevCardValue = (cardValue)Enum.Parse(typeof(cardValue), prevCardArray[0]);
+            cardSuit prevCardSuit = (cardSuit)Enum.Parse(typeof(cardSuit), prevCardArray[2]);
 
-            if (cardValueCurrentArrayString[0] == "Ace")
-            {
-                cardValueCurrentArrayString[0] = "1";
-            }
-
-            if (cardValueCurrentArrayString[0] == "Jack")
-            {
-                cardValueCurrentArrayString[0] = "11";
-            }
-
-            if (cardValueCurrentArrayString[0] == "Queen")
-            {
-                cardValueCurrentArrayString[0] = "12";
-            }
-
-            if (cardValueCurrentArrayString[0] == "King")
-            {
-                cardValueCurrentArrayString[0] = "13";
-            }
-
-            //seksksksksksksksksk
-
-            if (cardValuePreviousArrayString[0] == "Ace")
-            {
-                cardValuePreviousArrayString[0] = "1";
-            }
-
-            if (cardValuePreviousArrayString[0] == "Jack")
-            {
-                cardValuePreviousArrayString[0] = "11";
-            }
-
-            if (cardValuePreviousArrayString[0] == "Queen")
-            {
-                cardValuePreviousArrayString[0] = "12";
-            }
-
-            if (cardValuePreviousArrayString[0] == "King")
-            {
-                cardValuePreviousArrayString[0] = "13";
-            }
-
-            int cardValueCurrent = int.Parse(cardValueCurrentArrayString[0]);
-            int cardValuePrevious = int.Parse(cardValuePreviousArrayString[0]);
+            prevCard.Value = prevCardValue;
+            prevCard.Suit = prevCardSuit;
 
             int points = doublePoints ? 20 : 10;
 
-            if (cardValueCurrent < cardValuePrevious)
+           if (card.compare(card, prevCard) == -1)
             {
                 score += points;
                 if (score >= 100)
@@ -283,26 +183,11 @@ namespace Higher_Lower
                     textBox.Text = score.ToString();
                     textBox6.Text = guesses.ToString();
                     MessageBox.Show("Congratulations! It took you " + guesses + " guesses to win.");
-                    highScore = guesses;
-                    if (highScoreArray.Count == 10)
-                    {
-                        highScoreArray.Remove(highScoreArray.Max());
-                        highScoreArray.Add(highScore);
-                    }
-                    else
-                    {
-                        highScoreArray.Add(highScore);
-                    }
-                    highScoreArray.Sort();
-                    for (int a = 0; a < highScoreArray.Count; a++)
-                    {
-                        MessageBox.Show(highScoreArray[a].ToString());
-                    }
                     reset();
                 }
                 doublePoints = false;
             }
-            else if (cardValueCurrent == cardValuePrevious)
+            else if (card.compare(card, prevCard) == 0)
             {
                 MessageBox.Show("Double Points!");
                 doublePoints = true;
