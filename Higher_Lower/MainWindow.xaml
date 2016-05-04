@@ -14,9 +14,8 @@
                 <GradientStop Color="#FF2F2A5F" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="86,49,93,194" TextWrapping="Wrap" Text="Higher || Lower" VerticalAlignment="Center" FontSize="50" Width="338" Height="76" Foreground="#FFFF2E00"/>
-        <Button x:Name="button" Content="Play" HorizontalAlignment="Left" Margin="202,144,0,0" VerticalAlignment="Top" Width="111" Height="45" Click="Play_Click" Cursor="Hand" BorderThickness="2" Background="#FFFF2E00" Foreground="Black" BorderBrush="Black"/>
-        <Button x:Name="button2" Content="Settings" HorizontalAlignment="Left" Margin="349,237,0,0" VerticalAlignment="Top" Width="75" Click="Settings_Click" Cursor="Hand" BorderThickness="2" Background="#FFFF2E00" BorderBrush="Black"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="89,51,92,194" TextWrapping="Wrap" Text="Higher || Lower" VerticalAlignment="Center" FontSize="50" Width="338" Height="76" Foreground="#FFFF2E00"/>
+        <Button x:Name="button" Content="Play" HorizontalAlignment="Left" Margin="204,184,0,0" VerticalAlignment="Top" Width="111" Height="45" Click="Play_Click" Cursor="Hand" BorderThickness="2" Background="#FFFF2E00" Foreground="Black" BorderBrush="Black" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center"/>
 
     </Grid>
 </Window>

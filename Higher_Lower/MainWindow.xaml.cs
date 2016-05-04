@@ -31,13 +31,5 @@ namespace Higher_Lower
             this.Hide();
             game.Show();
         }
-
-        private void Settings_Click(object sender, RoutedEventArgs e)
-        {
-            Settings settings = new Settings();
-            this.Hide();
-            settings.Show();
-        }
-
     }
 }

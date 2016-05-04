@@ -19,11 +19,18 @@ namespace Higher_Lower
     /// </summary>
     public partial class Game : Window
     {
-        Deck thing = new Deck();
-
         Random rand = new Random();
         Card card = new Card();
         Card prevCard = new Card();
+        // list of textboxes so i could index them and cycle through upon click event.
+        List<TextBox> textBoxList = new List<TextBox>();
+
+        int score = 0;
+        int guesses = 0;
+        //index and previous index for textbox arrays when adding styling.
+        int index = 0;
+        int previndex = -1;
+        bool doublePoints = false;
 
         public Game()
         {
@@ -36,9 +43,6 @@ namespace Higher_Lower
             textBoxList[0].FontWeight = FontWeights.Bold;
             textBoxList[0].Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF2E00"));
         }
-
-        // list of textboxes so i could index them and cycle through upon click event.
-        List<TextBox> textBoxList = new List<TextBox>();
 
         private List<TextBox> addTextBox()
         {
@@ -75,26 +79,18 @@ namespace Higher_Lower
             guesses = 0;
             index = 0;
             previndex = -1;
-            textBox.Text = score.ToString();
             textBoxList[0].Text = card.ToString();
             textBoxList[0].FontWeight = FontWeights.Bold;
             textBoxList[0].Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF2E00"));
 
         }
 
-        int score = 0;
-        int guesses = 0;
-        //index and previous index for textbox arrays when adding styling.
-        int index = 0;
-        int previndex = -1;
-        bool doublePoints = false;
-
         // higher_click and lower_click contain almost identical code. 
         private void Higher_Click(object sender, RoutedEventArgs e)
         {
-            guesses += 1;
-            index += 1;
-            previndex += 1;
+            guesses++;
+            index++;
+            previndex++;
 
             //if the next index is not represented by a textbox, the next click will append text to the textbox at index 0
             if (index == textBoxList.Count)
@@ -145,14 +141,13 @@ namespace Higher_Lower
             }
             textBox6.Text = guesses.ToString();
             textBox.Text = score.ToString();
-
         }
         
         private void Lower_Click(object sender, RoutedEventArgs e)
         {
-            guesses += 1;
-            index += 1;
-            previndex += 1;
+            guesses++;
+            index++;
+            previndex++;
 
             if (index == textBoxList.Count)
             {
@@ -175,7 +170,7 @@ namespace Higher_Lower
 
             int points = doublePoints ? 20 : 10;
 
-           if (card.compare(card, prevCard) == -1)
+            if (card.compare(card, prevCard) == -1)
             {
                 score += points;
                 if (score >= 100)
