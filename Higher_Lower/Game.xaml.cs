@@ -22,12 +22,12 @@ namespace Higher_Lower
         Random rand = new Random();
         Card card = new Card();
         Card prevCard = new Card();
-        // list of textboxes so i could index them and cycle through upon click event.
+        // list of textboxes in order to index them and cycle through upon click event.
         List<TextBox> textBoxList = new List<TextBox>();
 
         int score = 0;
         int guesses = 0;
-        //index and previous index for textbox arrays when adding styling.
+        //index and previous index for textbox list when adding styling.
         int index = 0;
         int previndex = -1;
         bool doublePoints = false;
@@ -39,6 +39,7 @@ namespace Higher_Lower
             addTextBox();
             card.Value = (cardValue)rand.Next(1, 14);
             card.Suit = (cardSuit)rand.Next(0, 4);
+            //ToString() overridden for instances of Card class.
             textBoxList[0].Text = card.ToString();
             textBoxList[0].FontWeight = FontWeights.Bold;
             textBoxList[0].Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF2E00"));
@@ -55,15 +56,15 @@ namespace Higher_Lower
             return textBoxList;
         }
 
+        //sets text content and style for current index of textBoxList
         private void initClick()
         {
             card.Value = (cardValue)rand.Next(1, 14);
             card.Suit = (cardSuit)rand.Next(0, 4);
-            //using index will always add text to the second textbox on first click. increment index of textbox array on 
-            //each click so appends text to the next textbox in array
             textBoxList[index].Text = card.ToString();
             textBoxList[index].FontWeight = FontWeights.Bold;
             textBoxList[index].Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF2E00"));
+            //reverses styling of previous index of textBoxList, so user knows what the current card is.
             textBoxList[previndex].Foreground = Brushes.White;
             textBoxList[previndex].FontWeight = FontWeights.Normal;
         }
@@ -85,14 +86,13 @@ namespace Higher_Lower
 
         }
 
-        // higher_click and lower_click contain almost identical code. 
         private void Higher_Click(object sender, RoutedEventArgs e)
         {
             guesses++;
             index++;
             previndex++;
-
-            //if the next index is not represented by a textbox, the next click will append text to the textbox at index 0
+            
+            //in order to create a loop of the textBoxList
             if (index == textBoxList.Count)
             {
                 index = 0;
@@ -105,6 +105,7 @@ namespace Higher_Lower
 
             initClick();
 
+            //extracts the value and suit of previous textbox in order to compare the current and previous cards for the scoring system that follows.
             string[] prevCardArray = textBoxList[previndex].Text.Split();
             cardValue prevCardValue = (cardValue)Enum.Parse(typeof(cardValue), prevCardArray[0]);
             cardSuit prevCardSuit = (cardSuit)Enum.Parse(typeof(cardSuit), prevCardArray[2]);
@@ -132,6 +133,7 @@ namespace Higher_Lower
                 MessageBox.Show("Double Points!");
                 doublePoints = true;
                 //when current and previous cards are equal in rank, no. of guesses remains same.
+                //guesses is incremented prior to this scoring system hence need for "guesses -= 1"
                 guesses -= 1;
             }
             else
