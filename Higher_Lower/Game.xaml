@@ -6,7 +6,14 @@
         xmlns:local="clr-namespace:Higher_Lower"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
-        Title="Game" Height="350" Width="525">
+        Title="Game" Height="350" Width="525"
+        Loaded="Game_Loaded">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black" Offset="0"/>
+            <GradientStop Color="White" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid RenderTransformOrigin="0.5,0.5">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -25,15 +32,20 @@
         <Button x:Name="button" Content="Higher" HorizontalAlignment="Left" Margin="95,234,0,0" VerticalAlignment="Top" Width="119" Height="47" Click="Higher_Click" Cursor="Hand" BorderThickness="2" Background="#FFFF2E00" BorderBrush="Black"/>
         <Button x:Name="button1" Content="Lower" HorizontalAlignment="Left" Margin="302,234,0,0" VerticalAlignment="Top" Width="119" Height="47" Click="Lower_Click" Cursor="Hand" BorderThickness="2" Background="#FFFF2E00" BorderBrush="Black"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="35" Margin="214,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="39" Text="0" IsReadOnly="True" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="20"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="56" Margin="10,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
-        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="56" Margin="110,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
-        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="56" Margin="210,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
-        <TextBox x:Name="textBox4" HorizontalAlignment="Left" Height="56" Margin="311,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
-        <TextBox x:Name="textBox5" HorizontalAlignment="Left" Height="56" Margin="411,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
         <Button x:Name="button3" Content="Menu" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="Menu_Click" Cursor="Hand" BorderThickness="2" Background="#FFFF2E00" BorderBrush="Black"/>
         <TextBox x:Name="textBox6" HorizontalAlignment="Left" Height="35" Margin="263,183,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="39" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True"/>
         <Label x:Name="label" Content="Score -" HorizontalAlignment="Left" Margin="154,189,0,0" VerticalAlignment="Top" Width="60" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Foreground="#FFFF2E00" FontSize="14" FontFamily="Segoe UI Black"/>
         <Label x:Name="label1" Content="- Guesses" HorizontalAlignment="Left" Margin="302,189,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="#FFFF2E00" FontSize="14" FontFamily="Segoe UI Black"/>
+        <Image x:Name="image1" HorizontalAlignment="Left" Height="100" Margin="10,60,0,0" VerticalAlignment="Top" Width="95"/>
+        <Image x:Name="image2" HorizontalAlignment="Left" Height="100" Margin="110,60,0,0" VerticalAlignment="Top" Width="95"/>
+        <Image x:Name="image3" HorizontalAlignment="Left" Height="100" Margin="210,60,0,0" VerticalAlignment="Top" Width="95"/>
+        <Image x:Name="image4" HorizontalAlignment="Left" Height="100" Margin="310,60,0,0" VerticalAlignment="Top" Width="95"/>
+        <Image x:Name="image5" HorizontalAlignment="Left" Height="100" Margin="410,60,0,0" VerticalAlignment="Top" Width="95"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="42,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFF2E00" FontWeight="Bold" FontSize="15"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="145,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFF2E00" FontWeight="Bold" FontSize="15"/>
+        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="244,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFF2E00" FontWeight="Bold" FontSize="15"/>
+        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="343,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFF2E00" FontWeight="Bold" FontSize="15"/>
+        <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" Margin="444,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFF2E00" FontWeight="Bold" FontSize="15"/>
 
     </Grid>
 </Window>

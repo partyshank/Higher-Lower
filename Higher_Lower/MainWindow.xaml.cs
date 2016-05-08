@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,16 +21,29 @@ namespace Higher_Lower
     /// </summary>
     public partial class MainWindow : Window
     {
+        Game game = new Game();
+        HighScores highscores = new HighScores();
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        public void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            Game game = new Game();
             this.Hide();
             game.Show();
+        }
+
+        private void Highscores_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            highscores.Show();
         }
     }
 }

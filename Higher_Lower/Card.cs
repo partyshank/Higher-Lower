@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Media.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,6 +73,16 @@ namespace Higher_Lower
         public override string ToString()
         {
             return String.Format("{0} of {1}", value, suit);
+        }
+
+        public BitmapImage getImage(Card thisCard)
+        {
+            string filePath = @"C:\Users\philip\Documents\Visual Studio 2015\Projects\Higher_Lower\Higher_Lower\cardImages\";
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri(filePath + thisCard.suit + (int)thisCard.value + ".bmp");
+            image.EndInit();
+            return image;
         }
     }
 }

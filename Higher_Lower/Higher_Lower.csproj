@@ -75,8 +75,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Card.cs" />
+    <Compile Include="HighScores.xaml.cs">
+      <DependentUpon>HighScores.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Page Include="Game.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HighScores.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
