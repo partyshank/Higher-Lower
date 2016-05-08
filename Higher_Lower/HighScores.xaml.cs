@@ -33,12 +33,23 @@ namespace Higher_Lower
 
         public void Highscores_Loaded(object sender, RoutedEventArgs e)
         {
-            using (StreamReader sr = new StreamReader(@"C:\Users\philip\Documents\Visual Studio 2015\Projects\Higher_Lower\Higher_Lower\highscore.txt"))
+            using (StreamReader sr = new StreamReader("highscore.txt"))
             {
                 string line;
-                while ((line = sr.ReadLine()) != null)
+                try
                 {
-                    game.highscoreList.Add(int.Parse(line));
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        game.highscoreList.Add(int.Parse(line));
+                    }
+                }
+                catch (FormatException)
+                {
+                    MainWindow home = new MainWindow();
+                    this.Hide();
+                    home.Show();
+                    MessageBox.Show(@"There seems to be an error. Please locate the highscore.txt file in \bin\debug 
+and make sure there are no empty lines either at the beginning/end or between the numbers.");
                 }
             }
 

@@ -77,10 +77,11 @@ namespace Higher_Lower
 
         public BitmapImage getImage(Card thisCard)
         {
-            string filePath = @"C:\Users\philip\Documents\Visual Studio 2015\Projects\Higher_Lower\Higher_Lower\cardImages\";
+            string filePath = @"cardImages\";
             BitmapImage image = new BitmapImage();
             image.BeginInit();
-            image.UriSource = new Uri(filePath + thisCard.suit + (int)thisCard.value + ".bmp");
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.UriSource = new Uri((filePath + thisCard.suit + (int)thisCard.value + ".bmp"), UriKind.Relative);
             image.EndInit();
             return image;
         }
